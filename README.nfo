@@ -1,0 +1,48 @@
+┌──────────────────────────────────────────────────────────────┐
+│  C R U M B                                 [ KRZ ]   krz.sh  │
+└──────────────────────────────────────────────────────────────┘
+
+WHAT
+  local-only browser history tracker. a webextension plugin and a
+  local http server. logs each page you visit to a plaintext org-mode
+  file at ~/.crumb/history.org.
+
+PARTS
+  - browser extension (webextension api, javascript)
+  - local http listener (python + flask)
+  - plaintext log (~/.crumb/history.org)
+
+  on each page load the extension posts page metadata to the local
+  server, which appends it to the log. captured: title, url, utc
+  timestamp, hostname, path, and optionally query string, tab id,
+  window id, favicon url.
+
+REQUIRES
+  python 3.x, flask, a chromium or firefox browser with extension
+  developer mode.
+
+RUN
+  1. start the listener:
+
+         python3 -m venv venv
+         source ./venv/bin/activate
+         pip install -r requirements.txt
+         python server.py
+
+  2. load the extension: enable developer mode, load crumb_extension/.
+  3. browse. entries land in ~/.crumb/history.org.
+  4. search:
+
+         python search.py <term>
+
+LIMITS
+  - extensions can't write files directly; the local server does it.
+  - the log is plaintext, not encrypted. bolt on your own if needed.
+  - data stays local. nothing is sent anywhere.
+
+LICENSE
+  0bsd. see LICENSE.
+
+┌──────────────────────────────────────────────────────────────┐
+│  krz.sh                                                      │
+└──────────────────────────────────────────────────────────────┘
