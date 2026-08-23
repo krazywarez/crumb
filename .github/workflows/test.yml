@@ -1,0 +1,32 @@
+name: Test
+
+# crumb had a test suite from one commit that had never passed: four tests, all
+# failing. They are fixed and this runs them, so the next break is visible.
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.11'
+
+      - name: Install
+        run: pip install -r requirements-dev.txt
+
+      - name: Tests
+        run: python -m pytest -q
+
+      # The webextension half of crumb is not covered by the Python tests, and a
+      # malformed manifest is silent until a browser refuses to load it.
+      - name: Extension manifest is valid JSON
+        run: python -c "import json; json.load(open('crumb_extension/manifest.json')); print('manifest.json parses')"
