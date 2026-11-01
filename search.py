@@ -18,7 +18,7 @@ def search_log(query):
         print("No history file found.")
         return
 
-    with open(LOG_PATH, "r") as f:
+    with open(LOG_PATH, "r", encoding="utf-8") as f:
         entries = f.read().split("* ")[1:]
 
     found = 0

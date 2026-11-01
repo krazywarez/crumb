@@ -51,7 +51,7 @@ def log_visit():
     favicon = data.get("favIconUrl", "")
     timestamp = datetime.utcnow().isoformat()
 
-    with open(LOG_PATH, "a") as f:
+    with open(LOG_PATH, "a", encoding="utf-8") as f:
         f.write(f"* {title}\n")
         f.write(":PROPERTIES:\n")
         f.write(f":URL:       {url}\n")
