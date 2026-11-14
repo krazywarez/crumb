@@ -1,5 +1,7 @@
 #+title: crumb
 
+support this project through [[https://github.com/sponsors/ccleberg][github sponsors]].
+
 * what
 local-only browser history tracker. a webextension plugin and a
 local http server. logs each page you visit to a plaintext org-mode
